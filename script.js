@@ -84,3 +84,42 @@ const items = [
     img: "./img/12.jpeg",
   },
 ];
+
+
+const shopItemsContainer = document.getElementById('shop-items');
+const shopItem = document.getElementById('item-template');
+
+const addContentToTemplate = (item) => {
+  const clonedTemplate = shopItem.content.cloneNode(true);
+  const h1 = clonedTemplate.querySelector('h1');
+  h1.textContent = item.title;
+  const p = clonedTemplate.querySelector('p');
+  p.textContent = item.description
+  const img = clonedTemplate.querySelector('img');
+  img.src = item.img
+  const price = clonedTemplate.querySelector('.price');
+  price.textContent = item.price
+  const tags = clonedTemplate.querySelector('.tags');
+  tags.textContent = item.tags
+  shopItemsContainer.append(clonedTemplate);
+}
+
+items.forEach(addContentToTemplate)
+const button = document.getElementById('search-btn')
+const searchInput = document.getElementById('search-input')
+const nothingFound = document.getElementById('nothing-found')
+
+function verifyInputText(inputText) {
+  shopItemsContainer.innerHTML = '';
+  nothingFound.textContent = '';
+  inputText = searchInput.value
+  const comparedResult = items.filter((item) => {
+    return item.title.toLowerCase().includes(inputText.trim().toLowerCase())
+  }) 
+  comparedResult.forEach(addContentToTemplate)
+  if (comparedResult.length == 0) {
+    nothingFound.textContent = 'Ничего не найдено'
+  }
+}
+
+button.addEventListener('click', verifyInputText)
