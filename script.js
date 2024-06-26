@@ -100,7 +100,13 @@ const addContentToTemplate = (item) => {
   const price = clonedTemplate.querySelector('.price');
   price.textContent = item.price
   const tags = clonedTemplate.querySelector('.tags');
-  tags.textContent = item.tags
+    item.tags.forEach ((item) => {
+      console.log(item)
+      const tag = document.createElement('span')
+      tag.classList.add('tag');
+      tag.textContent = item;
+      tags.append(tag);
+    })
   shopItemsContainer.append(clonedTemplate);
 }
 
